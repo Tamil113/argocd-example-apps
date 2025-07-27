@@ -1,23 +1,15 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: my-helm-app-1
-  namespace: argocd
+  name: my-app
 spec:
   project: default
   source:
-    repoURL: https://charts.bitnami.com/bitnami
-    chart: nginx
-    targetRevision: 15.9.0
-    helm:
-      releaseName: my-nginx
-      values: |
-        service:
-          type: LoadBalancer
+    repoURL: https://github.com/iamarunix/argocd-example-apps
+    targetRevision: HEAD
+    path: guestbook
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: argocd
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+    automated: {}
